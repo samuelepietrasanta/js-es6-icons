@@ -150,14 +150,16 @@ function mostraicone(array , container){
  * @param property 
  */
  function getSpecificProperty(array , property){
+
     const properties = [];
 
     array.forEach((element) =>{
-        if (! properties.includes(element[property])){
+        if (!properties.includes(element[property])){
             properties.push(element[property]);
         }
 
-    return properties
+    
     })
+    return properties
 
 }
