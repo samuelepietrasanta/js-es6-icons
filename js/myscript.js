@@ -102,17 +102,26 @@ let icons = [
 	}
 ];
 
-//mostriamo in pagina tutte le icone disponibili come da layout.
+
+
+const colors = ['blue', 'magenta', 'yellow']
+
+const iconecolorate = colorizedItems(icons, colors)
 
 let container = document.getElementById("layout_id");
-mostraicone(icons , container)
+mostraicone(iconecolorate , container)
+
+
+//MILESTONE 3 
+//Creiamo una select con i tipi di icone e usiamola per filtrare le icone
 
 
 
-// MILESTONE 2 
-// Coloriamo le icone per tipo
 
-console.log(getSpecificProperty(icons,"type"));
+
+
+
+
 
 
 
@@ -131,11 +140,11 @@ function mostraicone(array , container){
 
     array.forEach((element) => {
 
-        const {name, prefix , type , family} = element;
+        const {name, prefix , type , family, color} = element;
 
         container.innerHTML += 
         `<div> 
-            <i class="${family} ${prefix}${name}"></i>
+            <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
             <h4>${name}</h4>
         </div>`
     });
@@ -163,3 +172,21 @@ function mostraicone(array , container){
     return properties
 
 }
+
+
+
+// MILESTONE 2 
+// Coloriamo le icone per tipo
+
+function colorizedItems(array, colors) {
+    const types = getSpecificProperty(icons, "type");
+    const colorizedArray = array.map((element) =>{
+        const indexOfType = types.indexOf(element.type);
+
+        if( indexOfType !== -1){
+            element.color = colors[indexOfType];
+        }
+        return element
+    })
+    return colorizedArray
+}  // L'HO CAPITO MA NON SAREI STATO IN GRADO DI FARLO DA SOLO
