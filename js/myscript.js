@@ -111,20 +111,21 @@ const iconecolorate = colorizedItems(icons, colors)
 let container = document.getElementById("layout_id");
 mostraicone(iconecolorate , container)
 
+ let types = getSpecificProperty(icons, 'type');
 
-//MILESTONE 3 
-//Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+ let select = document.getElementById('my_select');
 
-
-
-
+ addOption(types , select) ;
 
 
+ select.addEventListener('change', () => {
+    const selectedValue = select.value;
+    console.log(selectedValue);
 
+    const filteredIcons = filteredElements(icons , selectedValue);
 
-
-
-
+    mostraicone(filteredIcons , container)
+ })
 
 
 
@@ -138,16 +139,21 @@ mostraicone(iconecolorate , container)
 
 function mostraicone(array , container){
 
+
+    let temporaryHTML = '';
+
     array.forEach((element) => {
 
         const {name, prefix , type , family, color} = element;
 
-        container.innerHTML += 
+        temporaryHTML += 
         `<div> 
             <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
             <h4>${name}</h4>
         </div>`
     });
+
+    container.innerHTML = temporaryHTML;
 
 }
 
@@ -190,3 +196,28 @@ function colorizedItems(array, colors) {
     })
     return colorizedArray
 }  // L'HO CAPITO MA NON SAREI STATO IN GRADO DI FARLO DA SOLO
+
+
+
+//MILESTONE 3 
+//Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+
+function addOption(options , select) {
+    options.forEach((element) => {
+        select.innerHTML += `<option value="${element}">${element}</option>`
+    })
+    
+
+
+}
+
+
+function filteredElements(array , filter){
+    if (filter.trim.toLowerCase === 'all'){
+        return array;
+    }
+
+    return array.filter((element) => element.type == filter ) ;
+    
+
+}
